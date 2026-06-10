@@ -229,6 +229,46 @@
             border: 1px solid rgba(148, 163, 184, 0.2);
         }
 
+        .pdf-viewer {
+            margin-top: 25px;
+        }
+
+        .pdf-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            padding: 15px;
+            background: rgba(30, 41, 59, 0.5);
+            border-radius: 8px;
+            border: 1px solid rgba(96, 165, 250, 0.3);
+        }
+
+        .pdf-header h5 {
+            margin: 0;
+            color: #60a5fa;
+            font-size: 0.95rem;
+            font-weight: 600;
+        }
+
+        .pdf-download {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: #60a5fa;
+            text-decoration: none;
+            padding: 8px 16px;
+            border: 1px solid rgba(96, 165, 250, 0.3);
+            border-radius: 6px;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .pdf-download:hover {
+            background-color: rgba(96, 165, 250, 0.1);
+            border-color: #60a5fa;
+        }
+
         /* Modal Styles */
         .modal {
             display: none;
@@ -367,6 +407,12 @@
                 right: 10px;
                 font-size: 2rem;
             }
+
+            .pdf-header {
+                flex-direction: column;
+                gap: 12px;
+                align-items: flex-start;
+            }
         }
     </style>
 </head>
@@ -470,6 +516,17 @@
             <div class="gallery-item" onclick="openModal(this.querySelector('img'))">
                 <img src="images/plc-tool-2.png" alt="CSV Output Sample">
             </div>
+        </div>
+
+        <h4>Documentation</h4>
+        <div class="pdf-viewer">
+            <div class="pdf-header">
+                <h5>📄 9300 Panel Rebuild</h5>
+                <a href="9300 Panel Rebuild.pdf" download class="pdf-download">
+                    ⬇️ Download PDF
+                </a>
+            </div>
+            <iframe src="9300 Panel Rebuild.pdf"></iframe>
         </div>
     </div>
 
