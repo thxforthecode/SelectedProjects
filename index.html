@@ -199,6 +199,7 @@
             border-radius: 8px;
             border: 1px solid rgba(148, 163, 184, 0.2);
             transition: all 0.3s ease;
+            cursor: pointer;
         }
 
         .gallery-item:hover {
@@ -226,6 +227,94 @@
             border: none;
             border-radius: 8px;
             border: 1px solid rgba(148, 163, 184, 0.2);
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .modal-content {
+            position: relative;
+            background-color: #0f172a;
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid rgba(96, 165, 250, 0.3);
+            max-width: 90%;
+            max-height: 90vh;
+            overflow: auto;
+            animation: slideUp 0.3s ease;
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .modal-img {
+            width: 100%;
+            max-height: 80vh;
+            object-fit: contain;
+            border-radius: 8px;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #60a5fa;
+            cursor: pointer;
+            transition: color 0.2s ease;
+            background: none;
+            border: none;
+            padding: 0;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-close:hover {
+            color: #f1f5f9;
+        }
+
+        .modal-caption {
+            text-align: center;
+            margin-top: 15px;
+            color: #94a3b8;
+            font-size: 0.95rem;
         }
 
         /* Footer */
@@ -265,6 +354,18 @@
 
             header {
                 padding: 40px 0 30px;
+            }
+
+            .modal-content {
+                max-width: 95%;
+                max-height: 95vh;
+                padding: 15px;
+            }
+
+            .modal-close {
+                top: 10px;
+                right: 10px;
+                font-size: 2rem;
             }
         }
     </style>
@@ -322,16 +423,16 @@
         </div>
 
         <div class="gallery">
-            <div class="gallery-item">
+            <div class="gallery-item" onclick="openModal(this.querySelector('img'))">
                 <img src="images/Controls_Architecture.png" alt="Controls Architecture Slide">
             </div>
-            <div class="gallery-item">
+            <div class="gallery-item" onclick="openModal(this.querySelector('img'))">
                 <img src="images/HMI-1_Home.png" alt="HMI Sample">
             </div>
-            <div class="gallery-item">
+            <div class="gallery-item" onclick="openModal(this.querySelector('img'))">
                 <img src="images/Label_GUI.png" alt="Print Application Sample">
             </div>
-            <div class="gallery-item">
+            <div class="gallery-item" onclick="openModal(this.querySelector('img'))">
                 <img src="images/Perspective_Views.png" alt="Perspective Sample">
             </div>
         </div>
@@ -363,10 +464,10 @@
         </div>
 
         <div class="gallery">
-            <div class="gallery-item">
+            <div class="gallery-item" onclick="openModal(this.querySelector('img'))">
                 <img src="images/plc-tool-1.png" alt="PLC Tool Screenshot">
             </div>
-            <div class="gallery-item">
+            <div class="gallery-item" onclick="openModal(this.querySelector('img'))">
                 <img src="images/plc-tool-2.png" alt="CSV Output Sample">
             </div>
         </div>
@@ -412,6 +513,41 @@
 </footer>
 
 </div>
+
+<!-- Image Modal -->
+<div id="imageModal" class="modal" onclick="closeModal(event)">
+    <div class="modal-content" onclick="event.stopPropagation()">
+        <button class="modal-close" onclick="closeModal()">&times;</button>
+        <img id="modalImage" class="modal-img" src="" alt="">
+        <p class="modal-caption" id="modalCaption"></p>
+    </div>
+</div>
+
+<script>
+    function openModal(imgElement) {
+        const modal = document.getElementById('imageModal');
+        const modalImg = document.getElementById('modalImage');
+        const modalCaption = document.getElementById('modalCaption');
+        
+        modalImg.src = imgElement.src;
+        modalCaption.textContent = imgElement.alt;
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal(event) {
+        const modal = document.getElementById('imageModal');
+        modal.classList.remove('active');
+        document.body.style.overflow = 'auto';
+    }
+
+    // Close modal when pressing Escape key
+    document.addEventListener('keydown', function(event) {
+        if (event.key === 'Escape') {
+            closeModal();
+        }
+    });
+</script>
 
 </body>
 </html>
